@@ -18,9 +18,13 @@ def get_tasks():
 def create_task():
     data = request.get_json()
 
+    if description is None:
+        description = "Нет описания"  # значение по умолчанию
+        
     # BUG: если description не передан, здесь будет None
     # и SQLAlchemy бросит ошибку при некоторых конфигурациях.
     # TODO: добавить проверку и значение по умолчанию
+    
     task = Task(
         title=data.get('title'),
         description=data.get('description'),
